@@ -1,0 +1,59 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww24180\viewh15020\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+This folder contains all the code used for simulations and real data. It consists of simulation Part 1 sup error for triangles and two stars, simulation Part 2 coverage for triangles, two stars and transitivity, real data example 1 for congress data (small and dense) and real data example 2 facebook pages data (very large and sparse). Source code folder consists of cpp files sourced in R. Each file is explained below:\
+\
+1.  Sup error\
+     1) triangle_sup_error_all.R: all methods (MB-M,MB-Q,MB-L,MB-L-apx,LS,SS,EG) of sup error for 15 levels of sparsity and 30 graphs of  n=160 under each sparsity \
+     2) twostar_sup_error_all.R: all methods calculated for two stars under same settings as above\
+     3) runtime_4cycles.R: all methods only for time recording purpose of 4cycles (note that it is only for run time not for result, as slow methods such as EG and SS are only calculated one bootstrap and multiplies B to get time\
+     4) sim-truth.R : simulate 10^6 graphs to calculate true cdf for 15 sparsity level \
+     5) (optional): put-tri/ts-together-sup-error.R: synthesize triangle/twostar sup error calculation files together by selecting target==triangle or two-star in case one wants to see them side by side  (note for many methods there are    differences in calculations)\
+\
+Sup error  sources graphon_simulate.R, matmult.cpp, approx_counts_bts.cpp, approx_counts_us_original.cpp under source folder\
+(See details of these files below) \
+\
+\
+2.  Coverage\
+    1) coverage-sim.R: all methods (MB-M,MB-Q,MB-L,MB-L-apx,LS,SS,EG) of sup error for 6 levels of sparsity and 200 graphs of  n=500 under each sparsity \
+       Note this file also includes the correction matrix calculation for higher level correctness. \
+       This file takes long time to run (should split into batches for taco) and the key results to save is bootstrap samples and correction calculations\
+    2) coverage-truth. R: simulate large size of graphs to calculate true count functionals under the 6 sparsities\
+    3) coverage-correctingres: use the results of coverage-sim.R (bootstrap samples and correction) and truth to calculate the coverage of each method \
+\
+Coverage sources graphon_simulate.R, matmult.cpp, approx_counts_bts.cpp,approx_counts_us_original.cpp under source folder\
+(See details of these files below) \
+\
+3.  RealData: Congress\
+     1) housevoting.R: data process threshold check using the method and result of andris 2015, \
+                                  network construction and cross-party edges and triangles calculation \
+     2) hopusevoting-cped.R:  Bootstraps and CI constructions for cross-party edges of these networks\
+     3) hopusevoting-cptri.R:  Bootstraps and CI constructions for cross-party triangles of these networks\
+Note that in this example we only used MB-Q since these are small and dense graphs. Other methods are commented out but usable if one wants too. They yield similar results.\
+If one wants to MB-L-apx for these graphs (unnecessary and inaccurate since they are very small), an optional file crossparty_approx_counts_original.cpp can be sourced under this folder. \
+\
+\
+4.  RealData: Facebook\
+      1) fb_pages_mb_all: MB-L-apx for exceptionally large and sparse page networks using new developed approx methods accounting for sparsity only for triangles, two stars and three paths. \
+Facebook sources find_neighbors.cpp, brute_counts_4cyc_3pth.cpp, approx_counts_us_newsp.cpp that is only needed for large and sparse graphs\
+Other folders do not need to source these files \
+\
+\
+5.  Source \
+      1) graphon_simulate.R,: simulate graphons (we used sbm and new graphon.2  as Zhang and Xia 2020)\
+      2) matmult.cpp (optional) : fast matrix multiplication using cpp function but really optional as one can use Sparse package in R. They are usually similar in run time. \
+      3) approx_counts_bts.cpp: triangle, two_stars approximate counts using Bernoulli tuple sampling in Chen and bts\
+      4) approx_counts_us_original.cpp: triangle, two_stars approximate counts using U-statistic sample methods we developed (pro: can be for any count statistics, cons: does not count for sparsity, O(n log n)\
+\'97\'97\'97 For very large sparse graphs\'97 \'97 \'97:\
+      5) find_neighbours.cpp: given a large sparse matrix, fastly find the 1s ( the neighbors of node i ) for each node I\
+      6) approx_counts_us_newsp.cpp: triangle, two_stars approximate counts using new U-statistic sample tricks we developed for large sparse graphs (pro: O(n rho log n rho), cons:only for triangles, two stars,three-path)\
+      7) brute_counts_4cyc_3pth.cpp: only used for runtime record of 4-cycles and brute force comparison of 3-path \'97 which does not finish in 24h for large sparse graphs\
+\
+  Note that in all files: two_star= v_star= exact count \
+\
+}

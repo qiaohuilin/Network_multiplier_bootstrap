@@ -226,11 +226,11 @@ for(kk in 1:6){
     
     ######## for two-stars #######
     twostar_tot=sum(colSums(A2*(1-A)))/2
-    twostar_hat[kk,ii]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    twostar_hat[kk,ii]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
     
     num_ts_i=colSums(A2 * (1-A)) + choose(di,2)- num_tri_i
-    h1ts=num_ts_i/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
-    h2ts=((di*matrix(1,n,n)+t(di*matrix(1,n,n))-2-2*A3)*A+(A2*(1-A)))/(choose(n-2,1)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1ts=num_ts_i/(choose(n-1,2)*c_hat^2*tau_n^2)
+    h2ts=((di*matrix(1,n,n)+t(di*matrix(1,n,n))-2-2*A3)*A+(A2*(1-A)))/(choose(n-2,1)*c_hat^2*tau_n^2)
     diag(h2ts)=0
     
     g1ts=h1ts-twostar_hat[kk,ii]
@@ -246,7 +246,7 @@ for(kk in 1:6){
     #do jackknife on the whold graph
     degree_jk=((sum(di)-2*di)/2)/(choose(n-1,2)*c_hat*tau_n)
     num_tri_jk= ((sum(num_tri_i)-3*num_tri_i)/3)/(choose(n-1,3)*c_hat^3*tau_n^3)
-    twostar_jk= (twostar_tot-num_ts_i)/(choose(n-1,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    twostar_jk= (twostar_tot-num_ts_i)/(choose(n-1,3)*c_hat^2*tau_n^2)
     trans_jk= num_tri_jk*3/twostar_jk
     
     #calculate varjack
@@ -525,8 +525,8 @@ for(kk in 1:6){
     P4=P2 * (1-P)
     twostar_tot2=sum(colSums(P4))/2
     num_ts_i2=colSums(P4) + choose(di2,2)- num_tri_i2
-    h1tslz=num_ts_i2 /(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
-    tshat_lz=twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1tslz=num_ts_i2 /(choose(n-1,2)*c_hat^2*tau_n^2)
+    tshat_lz=twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2)
     transhat2=trihat_lz*3/tshat_lz
     
     g1tslz=h1tslz - tshat_lz
@@ -534,7 +534,7 @@ for(kk in 1:6){
     
     #### JK var for LS ###
     num_tri_jklz= ((sum(num_tri_i2)-3*num_tri_i2)/3)/(choose(n-1,3)*c_hat^3*tau_n^3)
-    twostar_jklz= (twostar_tot2-num_ts_i2)/(choose(n-1,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    twostar_jklz= (twostar_tot2-num_ts_i2)/(choose(n-1,3)*c_hat^2*tau_n^2)
     trans_jklz= num_tri_jklz*3/twostar_jklz
     Sn_trans_jklz= sqrt(sum((trans_jklz-mean(trans_jklz))^2))
     
@@ -542,7 +542,7 @@ for(kk in 1:6){
     W= rmultinom(B,size=n,prob = rep(1/n,n))
     for(jj in 1: B) {
       tri_mb[ii,jj]=  trihat_lz+ 3*(sum(W[,jj]*h1_lz)/n-tri_lz) #3*(sum(W[,jj]*tri_i)/n) # #(sum(diag(A3))/6)/(choose(n,3)*c_hat^3*tau_n^3)
-      twostar_mb[ii,jj]=  tshat_lz+ 3*(sum(W[,jj]*h1tslz)/n-tshat_lz) #3*(sum(W[,jj]*twostar_i)/n) #Untwo+ 3*(sum(W[,jj]*twostar_i)/n-Untwo) #twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      twostar_mb[ii,jj]=  tshat_lz+ 3*(sum(W[,jj]*h1tslz)/n-tshat_lz) #3*(sum(W[,jj]*twostar_i)/n) #Untwo+ 3*(sum(W[,jj]*twostar_i)/n-Untwo) #twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
       trans_mb[ii,jj]=3*tri_mb[ii,jj] /  twostar_mb[ii,jj] 
       print(c(kk,ii,jj,"LS"))
     }
@@ -574,10 +574,10 @@ for(kk in 1:6){
       
       
       twostar_totsb=sum(colSums(subA2*(1-subA)))/2
-      twostar_mb[ii,jj]=twostar_totsb/(choose(b,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      twostar_mb[ii,jj]=twostar_totsb/(choose(b,3)*c_hat^2*tau_n^2)
       
       r=3
-      h1tssb=(colSums(subA2 * (1-subA)) + choose(disb,2)- num_tri_isb)/(choose(b-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      h1tssb=(colSums(subA2 * (1-subA)) + choose(disb,2)- num_tri_isb)/(choose(b-1,2)*c_hat^2*tau_n^2)
       g1tssb=h1tssb-twostar_mb[ii,jj]
       Sn_hat_formb_tssb[jj]=sqrt(r^2/b^2*sum(g1tssb^2))
       
@@ -605,7 +605,7 @@ for(kk in 1:6){
       tri_mb[ii,jj]= (sum(num_tri_i2)/3)/(choose(n,3)*c_hat^3*tau_n^3)
       
       twostar_tot2=sum(colSums(P2*(1-P)))/2
-      twostar_mb[ii,jj]= twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      twostar_mb[ii,jj]= twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2)
       
       trans_mb[ii,jj]=tri_mb[ii,jj] *3 / twostar_mb[ii,jj]
       print(c(kk,ii,jj,'EG'))
@@ -636,7 +636,7 @@ for(kk in 1:6){
     
     
     Mts=cal_vstar_h1(n,N,A)
-    h1_ts=Mts[,N]/(c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1_ts=Mts[,N]/(c_hat^2*tau_n^2)
     
     Tnhat_us_ts[kk,ii]=mean(h1_ts)
     g1_ts=h1_ts-Tnhat_us_ts[kk,ii]
@@ -658,7 +658,7 @@ for(kk in 1:6){
     g1kato=h1_kato-Tnhat_kato[kk,ii]
     Sn_hat_formb_kato= sqrt(r^2/n^2*sum(g1kato^2))
     
-    h1_kato_ts=cal_kato_vstar_h1(n,N3,A)/(N3*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1_kato_ts=cal_kato_vstar_h1(n,N3,A)/(N3*c_hat^2*tau_n^2)
     Tnhat_kato_ts[kk,ii]=mean(h1_kato_ts)
     g1kato_ts=h1_kato_ts-Tnhat_kato_ts[kk,ii]
     Sn_hat_formb_kato_ts= sqrt(r^2/n^2*sum(g1kato_ts^2))

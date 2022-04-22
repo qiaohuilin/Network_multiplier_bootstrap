@@ -109,15 +109,15 @@ for(kk in 1:5){
   
   #pre-calculations
   st=Sys.time()
-  fourcycle_hat[ii]=count_4cycles(n,A)/(choose(n,4)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  fourcycle_hat[ii]=count_4cycles(n,A)/(choose(n,4)*c_hat^4*tau_n^4)
   
   r=4
-  g1=count_4cycles_h1(n,A)/(choose(n-1,3)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)-fourcycle_hat[ii]
+  g1=count_4cycles_h1(n,A)/(choose(n-1,3)*c_hat^4*tau_n^4)-fourcycle_hat[ii]
   Sn_hat_formb= sqrt(r^2/n^2*sum(g1^2))
   ed=Sys.time()
   tiktok_pre_linear[kk,ii]=as.numeric((ed-st),units="secs")
   
-  g2tilde=count_4cycles_h2(n,A)/(choose(n-2,2)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)-fourcycle_hat[ii]
+  g2tilde=count_4cycles_h2(n,A)/(choose(n-2,2)*c_hat^4*tau_n^4)-fourcycle_hat[ii]
   diag(g2tilde)=0
   g2=g2tilde-g1*matrix(1,n,n)- t(g1*matrix(1,n,n))
   diag(g2)=0
@@ -185,10 +185,10 @@ for(kk in 1:5){
   
   P=X %*% t(X)
   diag(P)=0
-  h1lz=count_4cycles_h1(n,P)/(choose(n-1,3)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  h1lz=count_4cycles_h1(n,P)/(choose(n-1,3)*c_hat^4*tau_n^4)
   
   r=4
-  fourcycle_lz=count_4cycles(n,P)/(choose(n,4)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  fourcycle_lz=count_4cycles(n,P)/(choose(n,4)*c_hat^4*tau_n^4)
   g1lz=h1lz-fourcycle_lz
   Sn_hat_lz= sqrt(r^2/n^2*sum(g1lz^2))
   
@@ -210,9 +210,9 @@ for(kk in 1:5){
   idx=sample(1:n,b,replace = F)
   subA=A[idx,idx]
  
-  fourcycle_mb[ii,jj]=count_4cycles(b,subA)/(choose(b,4)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  fourcycle_mb[ii,jj]=count_4cycles(b,subA)/(choose(b,4)*c_hat^4*tau_n^4)
   
-  g1sb=count_4cycles_h1(b,subA)/(choose(b-1,3)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)-fourcycle_mb[ii,jj]
+  g1sb=count_4cycles_h1(b,subA)/(choose(b-1,3)*c_hat^4*tau_n^4)-fourcycle_mb[ii,jj]
   Sn_hat_formbsb= sqrt(r^2/b^2*sum(g1sb^2))
   print(c(kk,ii,jj,"SS"))
   
@@ -226,7 +226,7 @@ for(kk in 1:5){
   idx=sample(n,n,replace = T)
   P=A[idx,idx]
   
-  fourcycle_mb[ii,jj]= count_4cycles(n,P)/(choose(n,4)*c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  fourcycle_mb[ii,jj]= count_4cycles(n,P)/(choose(n,4)*c_hat^4*tau_n^4)
   
   print(c(kk,ii,jj,"EG"))
 
@@ -243,7 +243,7 @@ for(kk in 1:5){
   r=4
   st=Sys.time()
   M=cal_4cycle_h1(n,N,A)
-  h1=M[,N]/(c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)
+  h1=M[,N]/(c_hat^4*tau_n^4)
   ed=Sys.time()
   time_us[kk,ii]=as.numeric((ed-st),units="secs")
   
@@ -256,7 +256,7 @@ for(kk in 1:5){
   N3=floor(n*50*log(n)/r)
   
   st=Sys.time()
-  h1_kato=cal_kato_4cycle_h1(n,N3,A)/(c_hat^4*tau_n^4*(1-c_hat*tau_n)^2)#-Tnhat_kato[ii,tt]
+  h1_kato=cal_kato_4cycle_h1(n,N3,A)/(c_hat^4*tau_n^4)#-Tnhat_kato[ii,tt]
   ed=Sys.time()
   time_kato[kk,ii]=as.numeric((ed-st),units="secs")
   

@@ -138,7 +138,7 @@ NumericVector cal_tri_h1_newsp(int n, int n_sample, sp_mat A, List nbs_list, Int
 
 
 // [[Rcpp::export]]
-NumericVector cal_vstar_g1_newsp(int n, int n_sample, sp_mat A, List nbs_list, IntegerVector dg){
+NumericVector cal_vstar_h1_newsp(int n, int n_sample, sp_mat A, List nbs_list, IntegerVector dg){
   NumericVector M(n);
   int k=3;
   int src=0;

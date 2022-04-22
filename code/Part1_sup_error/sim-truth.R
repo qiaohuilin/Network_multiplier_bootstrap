@@ -86,12 +86,12 @@ if(input==2){
     
     #two-stars density
     twostar_tot=sum(colSums(A2*(1-A)))/2
-    twostar_hat_true[tt]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    twostar_hat_true[tt]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
     
     
     r=3
     h1ts=colSums(A2 * (1-A)) + choose(degree_temp,2)- num_tri_i
-    g1ts=h1ts/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))-twostar_hat_true[tt]
+    g1ts=h1ts/(choose(n-1,2)*c_hat^2*tau_n^2)-twostar_hat_true[tt]
     Sn_hat_ts[tt]=sqrt(r^2/n^2*sum(g1ts^2))
     
     #normalized transitivity

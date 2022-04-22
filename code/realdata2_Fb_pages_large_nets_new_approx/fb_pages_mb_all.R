@@ -104,7 +104,7 @@ for(i in 1:4){
   ###
   st=Sys.time()
   M=cal_3path_h1_newsp(n,N,A,nbs_list,dg)
-  g1_pth_uncentered=M/(rhon^3*(1-rhon)^3)
+  g1_pth_uncentered=M/(rhon^3)
   ed=Sys.time()
   timeg1s_pth[1,i]=difftime(ed, st, units = "secs")
   
@@ -140,7 +140,7 @@ for(i in 1:4){
   ### v-stars
   st=Sys.time()
   M=cal_vstar_h1_newsp(n,N,A,nbs_list,dg)
-  g1_ts_uncentered=M/(rhon^2*(1-rhon))
+  g1_ts_uncentered=M/(rhon^2)
   ed=Sys.time()
   timeg1s_ts[1,i]=difftime(ed, st, units = "secs")
   
@@ -152,9 +152,9 @@ for(i in 1:4){
   ### old method time
   
   # # old 3 path
-  # #old_count_3path=count_3path(n,as.matrix(A))/(choose(n,4)*rhon^3*(1-rhon)^3)
+  # #old_count_3path=count_3path(n,as.matrix(A))/(choose(n,4)*rhon^3)
   # st=Sys.time()
-  # old_count_3path_g1=count_3path_i(n,A)/(choose(n,4)*rhon^3*(1-rhon)^3)
+  # old_count_3path_g1=count_3path_i(n,A)/(choose(n,4)*rhon^3)
   # old_count_3path=sum(old_count_3path_g1)/4
   # ed=Sys.time()
   # timeg1s_pth_old[1,i]=difftime(ed, st, units = "secs")
@@ -178,7 +178,7 @@ for(i in 1:4){
   # st=Sys.time()
   # A2= A %*% A
   # diag(A2)=0
-  # (sum(colSums(A2*(1-A)))/2)/(choose(n,3)*rhon^2*(1-rhon))
+  # (sum(colSums(A2*(1-A)))/2)/(choose(n,3)*rhon^2)
   # ed=Sys.time()
   # timeg1s_ts_old[1,i]=difftime(ed, st, units = "secs")
   # #############################################

@@ -190,11 +190,11 @@ for(kk in 1:15){
       di=colSums(A)
       
       twostar_tot=sum(colSums(A2*(1-A)))/2
-      target_hat[kk,ii]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      target_hat[kk,ii]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
       
       r=3
-      h1=(colSums(A2 * (1-A)) + choose(di,2)- num_tri_i)/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
-      h2=((di*matrix(1,n,n)+t(di*matrix(1,n,n))-2-2*A3)*A+(A2*(1-A)))/(choose(n-2,1)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      h1=(colSums(A2 * (1-A)) + choose(di,2)- num_tri_i)/(choose(n-1,2)*c_hat^2*tau_n^2)
+      h2=((di*matrix(1,n,n)+t(di*matrix(1,n,n))-2-2*A3)*A+(A2*(1-A)))/(choose(n-2,1)*c_hat^2*tau_n^2)
       diag(h2)=0
       
       g1=h1-target_hat[kk,ii]
@@ -254,7 +254,7 @@ for(kk in 1:15){
       DD=WW %*% A %*% WW %*% A %*% WW
       sumtwostar=(sum(sum(DD))-sum(diag(DD))-sum(diag(DD %*% A)))/2
       sum_center_twostar=sumeijk* twostar_tot/(choose(n,3))
-      target_mb[ii,jj]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))+ (sumtwostar-sum_center_twostar)/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      target_mb[ii,jj]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)+ (sumtwostar-sum_center_twostar)/(choose(n,3)*c_hat^2*tau_n^2)
       }
       
      # print(c(kk,ii,jj))
@@ -369,15 +369,15 @@ for(kk in 1:15){
       di2=colSums(P)
       P4=P2 * (1-P)
       twostar_tot2=sum(colSums(P4))/2
-      h1tslz=(colSums(P4) + choose(di2,2)- num_tri_i2)/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      h1tslz=(colSums(P4) + choose(di2,2)- num_tri_i2)/(choose(n-1,2)*c_hat^2*tau_n^2)
       
-      twostarhat2=twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+      twostarhat2=twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2)
       g1lz=h1tslz - twostarhat2
       Sn_hat_lz=sqrt(r^2/n^2*sum(g1lz^2))
       
       W= rmultinom(B,size=n,prob = rep(1/n,n))
       for(jj in 1: B) {
-        target_mb[ii,jj]=  twostarhat2+ 3*(sum(W[,jj]*h1tslz)/n-twostarhat2) #3*(sum(W[,jj]*twostar_i)/n) #Untwo+ 3*(sum(W[,jj]*twostar_i)/n-Untwo) #twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+        target_mb[ii,jj]=  twostarhat2+ 3*(sum(W[,jj]*h1tslz)/n-twostarhat2) #3*(sum(W[,jj]*twostar_i)/n) #Untwo+ 3*(sum(W[,jj]*twostar_i)/n-Untwo) #twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
         #print(c(kk,ii,jj))
       }
     }
@@ -415,9 +415,9 @@ for(kk in 1:15){
         disb=colSums(subA)
         
         twostar_totsb=sum(colSums(subA2*(1-subA)))/2
-        target_mb[ii,jj]=twostar_totsb/(choose(b,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+        target_mb[ii,jj]=twostar_totsb/(choose(b,3)*c_hat^2*tau_n^2)
         
-        h1tssb=(colSums(subA2 * (1-subA)) + choose(disb,2)- num_tri_isb)/(choose(b-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+        h1tssb=(colSums(subA2 * (1-subA)) + choose(disb,2)- num_tri_isb)/(choose(b-1,2)*c_hat^2*tau_n^2)
         g1tssb=h1tssb-target_mb[ii,jj]
         Sn_hat_formbsb[jj]=sqrt(r^2/b^2*sum(g1tssb^2))
       }
@@ -451,7 +451,7 @@ for(kk in 1:15){
       if(target=='two_star'){
         di2=colSums(P)
         twostar_tot2=sum(colSums(P2*(1-P)))/2
-        target_mb[ii,jj]= twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+        target_mb[ii,jj]= twostar_tot2/(choose(n,3)*c_hat^2*tau_n^2)
       }
       #print(c(kk,ii,jj))
     }
@@ -479,7 +479,7 @@ for(kk in 1:15){
     }
     if(target=='two_star'){
     M=cal_vstar_h1(n,N,A)  #see source code function
-    h1=M[,N]/(c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1=M[,N]/(c_hat^2*tau_n^2)
     }
     
     ed=Sys.time()
@@ -497,7 +497,7 @@ for(kk in 1:15){
     h1_kato=cal_kato_tri_h1(n,N3,A)/(choose(n-1,2)*c_hat^3*tau_n^3)
     }
     if(target=='two_star'){
-    h1_kato=cal_kato_vstar_h1(n,N3,A)/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1_kato=cal_kato_vstar_h1(n,N3,A)/(choose(n-1,2)*c_hat^2*tau_n^2)
     }
     ed=Sys.time()
     time_kato[kk,ii]=ed-st

@@ -79,11 +79,11 @@ for(input in 1:2){
     
     #two-stars density
     twostar_tot=sum(colSums(A2*(1-A)))/2
-    twostar_hat_true[input,kk]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    twostar_hat_true[input,kk]= twostar_tot/(choose(n,3)*c_hat^2*tau_n^2)
     
     
     r=3
-    h1ts=(colSums(A2 * (1-A)) + choose(di,2)- num_tri_i)/(choose(n-1,2)*c_hat^2*tau_n^2*(1-c_hat*tau_n))
+    h1ts=(colSums(A2 * (1-A)) + choose(di,2)- num_tri_i)/(choose(n-1,2)*c_hat^2*tau_n^2)
     g1ts=h1ts-twostar_hat_true[input,kk]
     Sn_hat_ts[input,kk]=sqrt(r^2/n^2*sum(g1ts^2))
     
